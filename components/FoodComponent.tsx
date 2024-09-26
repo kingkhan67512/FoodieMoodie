@@ -5,15 +5,22 @@ export default function FoodComponent({food}) {
     console.log(food)
   return (
     <View style={styles.container}>
-      <Image source={{ uri: food[0].image }} style={styles.image} />
+    
+    <View style={styles.imageContainer}>
+        <Image source={{ uri: food[0].image }} style={styles.image} />
+    </View>
       <Text style={styles.title}>{food[0].title}</Text>
       <Text style={styles.title}>{food[0].price}</Text>
-
-      <Image source={{ uri: food[1].image }} style={styles.image} />
+      
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: food[1].image }} style={styles.image} />
+      </View>
       <Text style={styles.title}>{food[1].title}</Text>
       <Text style={styles.title}>{food[1].price}</Text>
 
+      <View style={styles.imageContainer}>
       <Image source={{ uri: food[2].image }} style={styles.image} />
+      </View>
       <Text style={styles.title}>{food[2].title}</Text>
       <Text style={styles.title}>{food[2].price}</Text>
     </View>
@@ -21,11 +28,20 @@ export default function FoodComponent({food}) {
 }
 
 const styles = StyleSheet.create({
-  image: {
-    width: "100%",
-    aspectRatio: 2 / 1,
-  },
+    imageContainer:{
+        width:"100%",
+        aspectRatio:2,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    image: {
+        width: 150,    // Ensures the image takes full width of the container
+        height: 150,   // Ensure the image takes full height of the container
+        resizeMode: "cover", // Makes sure the image fits within the container
+    },
+    
   container: {
+    flexGrow:1,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
