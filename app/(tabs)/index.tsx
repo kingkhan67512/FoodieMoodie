@@ -1,19 +1,25 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Image, ScrollView,Text, View  } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-
+import { } from '@/components/Themed';
+import Food from '@/assets/data/Food';
 export default function TabOneScreen() {
   return (
+    <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+      <Image source={{uri:Food[0].image}}
+      style={styles.image}/>
+      <Text style={styles.title} >{Food[0].title}</Text>
+      <Text style={styles.title}>{Food[0].price}</Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  image:{
+    width:'50%',
+    aspectRatio: 2/1
+  },
   container: {
     flex: 1,
     alignItems: 'center',
