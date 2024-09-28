@@ -1,58 +1,72 @@
 import Food from "@/assets/data/Food";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet,FlatList, TouchableOpacity } from "react-native";
 
-export default function FoodComponent({food}) {
-    console.log(food)
+interface FoodItem{
+  id:number
+  image:string;
+  title:string;
+  price:string;
+}
+interface FoodComponentProps{
+  myProps:FoodItem[]
+}
+
+const Item = ({item}) => (
+  <View style={styles.itemcontainer}>
+<Image source={{ uri: item.image }} style={styles.image} />
+  <Text style={styles.title}>{item.title}</Text>
+  <Text style={styles.title}>{item.price}</Text>
+  </View>
+);
+export default function FoodComponent({myProps}:FoodComponentProps) {
   return (
-    <View style={styles.container}>
     
-    <View style={styles.imageContainer}>
-        <Image source={{ uri: food[0].image }} style={styles.image} />
-    </View>
-      <Text style={styles.title}>{food[0].title}</Text>
-      <Text style={styles.title}>{food[0].price}</Text>
-      
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: food[1].image }} style={styles.image} />
-      </View>
-      <Text style={styles.title}>{food[1].title}</Text>
-      <Text style={styles.title}>{food[1].price}</Text>
-
-      <View style={styles.imageContainer}>
-      <Image source={{ uri: food[2].image }} style={styles.image} />
-      </View>
-      <Text style={styles.title}>{food[2].title}</Text>
-      <Text style={styles.title}>{food[2].price}</Text>
-    </View>
+    
+  <View style={styles.container}>
+     <FlatList
+        data={myProps}
+        renderItem={({ item }) => <Item item={item} />}
+        keyExtractor={(item) => item.id} // Ensure each item has a unique id
+        numColumns={2} // Display two columns
+        columnWrapperStyle={styles.columnWrapper} // Style to add spacing between columns
+        showsVerticalScrollIndicator={false} // Hides scroll bar (optional)
+        contentContainerStyle={styles.flatListContent} // Adds padding and margin around FlatList
+      />
+    
+  </View>
   );
 }
 
 const styles = StyleSheet.create({
-    imageContainer:{
-        width:"100%",
-        aspectRatio:2,
-        alignItems:'center',
-        justifyContent:'center'
-    },
+  container: {
+    flex:1,
+    width:'100%',
+    padding:10
+  },
+  itemcontainer:{
+    flex:1,
+    margin:10,
+    overflow:'hidden',
+    borderRadius:30,
+    backgroundColor:'#FF6500',
+    alignItems:'center'
+    
+  },
+  columnWrapper: {
+    justifyContent: "space-between", // Space between columns
+  },
     image: {
-        width: 150,    // Ensures the image takes full width of the container
-        height: 150,   // Ensure the image takes full height of the container
-        resizeMode: "cover", // Makes sure the image fits within the container
+        width: '100%',    // Ensures the image takes full width of the container
+        aspectRatio: 1,   // Ensure the image takes full height of the container
+        resizeMode: "cover",
     },
     
-  container: {
-    flexGrow:1,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+ 
   title: {
-    fontSize: 20,
+    color:'white',
+    fontSize: 18,
     fontWeight: "bold",
+
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+  
 });
